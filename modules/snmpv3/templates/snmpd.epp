@@ -1,0 +1,11 @@
+createUser librenms SHA DGccdU5E4Dooku23yWgn023K66snms AES YU5E4Dooku06yWgn006K66snms478
+agentAddress udp:0.0.0.0:161
+rouser librenms priv
+sysLocation ITOPS,TLScontact
+sysContact it.operations@tlscontact.com;  
+
+view systemview included .1.3.6.1.2.1.1
+view systemview included .1.3.6.1.2.1.25.1.1
+view all included .1
+access notConfigGroup "" any noauth exact all none none
+master agentX

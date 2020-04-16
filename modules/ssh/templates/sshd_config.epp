@@ -1,0 +1,52 @@
+Port 13333
+Protocol 2
+PrintLastLog yes
+PrintMotd no
+SyslogFacility AUTHPRIV
+StrictModes yes
+PasswordAuthentication yes
+PubkeyAuthentication yes
+UsePAM yes
+
+# AuthorizedKeysFile location
+AuthorizedKeysFile /etc/ssh/authorized-keys/%u
+
+# idle timeout in seconds
+ClientAliveInterval 900
+ClientAliveCountMax 0
+
+HostbasedAuthentication no
+#Overwritten by lwidentity: ChallengeResponseAuthentication no
+ChallengeResponseAuthentication yes
+
+# Root login
+PermitRootLogin no
+PermitEmptyPasswords no
+PermitUserEnvironment no
+
+# Port forwarding
+AllowTcpForwarding no
+GatewayPorts no
+PermitTunnel no
+
+# Accept locale-related environment variables
+AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES
+AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT
+AcceptEnv LC_IDENTIFICATION LC_ALL
+
+# Stop using GSSAPI in sshd configuration
+# Overwritten by lwidentity: GSSAPIAuthentication no
+GSSAPIAuthentication yes
+KbdInteractiveAuthentication yes
+GSSAPICleanupCredentials yes
+
+# Warning banner
+Banner /etc/banner
+
+# override default of no subsystems
+Subsystem sftp /usr/libexec/openssh/sftp-server
+
+# SSH Cryptographic policy
+Ciphers aes128-ctr,aes192-ctr,aes256-ctr
+KexAlgorithms ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha256
+MACs hmac-sha2-256,hmac-sha2-512,hmac-sha1

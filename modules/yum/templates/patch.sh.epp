@@ -1,0 +1,42 @@
+#!/bin/bash
+
+update_date="$(date +%Y%m)"
+local_log="/data/update.log/"
+
+# get a list of available updates from PULP repos
+yum clean all
+repoquery -a --pkgnarrow=updates --qf "%{name}-%{epoch}:%{version}-%{release}.%{arch}  " >> ${local_log}/updates.${update_date}
+
+# delete files if there isn't any updates
+find $local_log -type f -size 0c -print |xargs -n 1 rm -f
+
+# yum update system
+if (($(ls $local_log |grep "updates.$update_date" |wc -l)==0)); then
+exit
+else
+# perform daily udpate. Retry 2 times before give up, if you want to exclude some packages, plus option -x [package], --exclude=[package]
+{
+max_tries=2
+try=$max_tries
+result='err'
+while (( try > 0 )) && [[ "$result" == 'err' ]]; do
+yum update -y && result='ok' || result='err'
+if [[ "$result" == 'err' ]]; then
+sleep 10
+fi
+try=$((try-1))
+done
+
+# get the yum log from /var/log/yum.log
+} 2> $local_log/$(hostname -s).$update_date.yum.err
+
+# delete files if there isn't any log
+find $local_log -type f -size 0c -print |xargs -n 1 rm -f
+
+# clean update log files
+find $local_log -type f -mtime +30 2>/dev/null |xargs rm -f
+
+# Send the logs
+
+fi
+
