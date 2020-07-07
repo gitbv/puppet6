@@ -1,6 +1,6 @@
 class yum::pilot{
 
-include yum::backup_repos, yum::config
+include yum::repos, yum::config
 
 exec {"yum uat":
   onlyif  => 'test $(repoquery -a --pkgnarrow=updates |wc -l) -gt 0 -a $(date +%H) -eq 12',     
