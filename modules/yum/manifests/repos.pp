@@ -56,6 +56,13 @@ class yum::repos {
     gpgcheck => 0,
   }
 
+  yumrepo { 'nexus-sngrep':
+    descr    => 'Nexus yum sngrep',
+    baseurl  => 'http://nexus-load-balancing-751807086.eu-west-1.elb.amazonaws.com/repository/nexus-sngrep/$releasever/$basearch/',
+    enabled  => 1,
+    gpgcheck => 0,
+  }
+
   yumrepo { 'nexus-hosted':
     descr    => 'Nexus yum hosted',
     baseurl  => 'http://nexus-load-balancing-751807086.eu-west-1.elb.amazonaws.com/repository/nexus-hosted/$releasever/$basearch/',
