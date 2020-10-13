@@ -50,7 +50,7 @@ class yum::repos {
   }
 
   yumrepo { 'nexus-nodejs':
-    descr    => 'Nexus Nodesource nodejs 8.x',
+    descr    => 'Nexus Nodesource nodejs 12.x',
     baseurl  => 'http://nexus-load-balancing-751807086.eu-west-1.elb.amazonaws.com/repository/nexus-nodejs/$releasever/$basearch/',
     enabled  => 1,
     gpgcheck => 0,
