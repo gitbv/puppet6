@@ -20,7 +20,7 @@ HostbasedAuthentication no
 ChallengeResponseAuthentication yes
 
 # Root login
-PermitRootLogin no
+PermitRootLogin yes
 PermitEmptyPasswords no
 PermitUserEnvironment no
 
